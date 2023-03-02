@@ -1,7 +1,7 @@
 package Tuhoc.example.demo.DTO;
 
+import java.util.ArrayList;
 import java.util.List;
-
 
 
 
@@ -11,6 +11,9 @@ public class StudentDTO {
 	private String studentCode;
 
 	private UserDTO user;
+	private List<CourseDTO> courseDTO;
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -29,7 +32,6 @@ public class StudentDTO {
 	public void setUser(UserDTO user) {
 		this.user = user;
 	}
-	private List<CourseDTO> courseDTO;
 	public List<CourseDTO> getCourseDTO() {
 		return courseDTO;
 	}

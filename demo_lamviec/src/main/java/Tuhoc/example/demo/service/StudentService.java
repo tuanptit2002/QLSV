@@ -34,11 +34,12 @@ public class StudentService {
 	
 	@Transient
 	public void create(StudentDTO studentDTO) {
-		User user = userRepo.findById(studentDTO.getId()).orElseThrow(NoResultException::new);
-		for(UserRole userRole :user.getUserRole()) {
+		User user = userRepo.findById(studentDTO.getUser().getId()).orElseThrow(NoResultException::new);
+		for(UserRole userRole : user.getUserRole()) {
 			if(userRole.getRole().equals("ROLE_STUDENT")) {
 				Student student = new Student();
-				student.setStudentCode(student.getStudentCode());
+				student.setStudentCode(studentDTO.getStudentCode());
+				student.setUser(user);
 				List<Course> list = new ArrayList<>();
 				for(CourseDTO courseDTO : studentDTO.getCourseDTO()) {
 					Course course = courseRepo.findById(courseDTO.getId()).orElseThrow(NoResultException::new);

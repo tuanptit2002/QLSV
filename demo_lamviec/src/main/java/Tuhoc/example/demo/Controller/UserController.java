@@ -44,7 +44,7 @@ public class UserController {
 		ResponseDTO<UserDTO> response = new ResponseDTO<>();
 		response.setStatus(200);
 		response.setData(userDTO);
-		return response;
+		return null;
 	}
 	@PostMapping("/update")
 	public ResponseDTO<Void> update(@ModelAttribute UserDTO userDTO)throws IllegalStateException,IOException{
@@ -78,6 +78,7 @@ public class UserController {
 		response.setStatus(200);
 		return response;
 	}
+
 	@GetMapping("/get/{id}")
 	public ResponseDTO<UserDTO> get(@PathVariable("id")int id){
 		UserDTO userDTO = userService.getById(id);

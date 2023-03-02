@@ -1,12 +1,9 @@
 package Tuhoc.example.demo.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 
 @Entity
@@ -27,8 +24,9 @@ public class Course {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@ManyToMany(mappedBy = "course")
-	private List<Student> student;
+	@ManyToMany
+	@JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
+	private List<Student> student = new ArrayList<>();
 	
 	public List<Student> getStudent() {
 		return student;

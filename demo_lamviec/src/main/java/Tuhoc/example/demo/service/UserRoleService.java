@@ -1,10 +1,12 @@
 package Tuhoc.example.demo.service;
 
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Transient;
+import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +48,10 @@ public class UserRoleService {
 	public void delete(int id) {
 		userRoleRepo.deleteById(id);
 	}
-	@Transient
+
+//	@Transactional
 	public void deleteByUserId(int userid) {
-		userRoleRepo.deleteById(userid);
+		userRoleRepo.deleteByUserId(userid);
 	}
 	public PageDTO<UserRoleDTO> searchByRole(String s,int page ,int size){
 		Pageable pageble = PageRequest.of(page, size);

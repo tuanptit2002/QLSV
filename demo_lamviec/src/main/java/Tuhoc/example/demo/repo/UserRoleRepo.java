@@ -12,9 +12,11 @@ import org.springframework.data.repository.query.Param;
 import Tuhoc.example.demo.entity.UserRole;
 
 public interface UserRoleRepo extends JpaRepository<UserRole, Integer>{
-	@Modifying
-	@Query("delete from UserRole ur where ur.user.id = :uid")
-	public void deleteByUserId(@Param("uid") int x);
+//	@Modifying
+//	@Query("delete from UserRole ur where ur.user.id = :uid")
+//	public void deleteByUserId(@Param("uid") int x);
 	@Query("SELECT u FROM UserRole u where u.role = s")
 	Page<UserRole>searchByRole(@Param("s") String s,Pageable pageable);
+
+	void deleteByUserId(int userId);
 }

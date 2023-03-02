@@ -48,8 +48,8 @@ public class UserRoleController {
 		 ps.setStatus(200);
 		 return ps;
 	}
-	@DeleteMapping("/delete/user")
-	public ResponseDTO<Void> deleteById(@PathVariable("id")int id){
+	@DeleteMapping("/delete/user/{id}")
+	public ResponseDTO<Void> deleteById(@PathVariable("id") int id){
 		 userRoleService.deleteByUserId(id);
 		 ResponseDTO<Void> ps= new ResponseDTO<>();
 		 ps.setStatus(200);

@@ -23,7 +23,7 @@ public class ScoreController {
 	@Autowired
 	ScoreService scoreService;
 	
-	@PostMapping("/score")
+	@PostMapping("/new")
 	public void create(@ModelAttribute ScoreDTO scoreDTO)throws IllegalStateException,IOException {
 		scoreService.create(scoreDTO);
 	}
@@ -35,10 +35,10 @@ public class ScoreController {
 	public void delete(@PathVariable("id")int id) {
 		scoreService.delete(id);
 	}
+
 	@GetMapping("/search")
 	public PageDTO<ScoreDTO> search(@RequestBody double x ,Integer page,Integer size
 			){
-		
 		PageDTO<ScoreDTO> pg = null;
 		pg = scoreService.searchByScore(x, page, size);
 		return pg;

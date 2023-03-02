@@ -23,12 +23,12 @@ public class CourseDTO {
 		this.name = name;
 	}
 	
-	private List<StudentDTO> studentDTO;
-	public List<StudentDTO> getStudentDTO() {
-		return studentDTO;
+	private List<StudentDTO> students;
+	public List<StudentDTO> getStudents() {
+		return students;
 	}
-	public void setStudentDTO(List<StudentDTO> studentDTO) {
-		this.studentDTO = studentDTO;
+	public void setStudents(List<StudentDTO> students) {
+		this.students = students;
 	}
 	
 	

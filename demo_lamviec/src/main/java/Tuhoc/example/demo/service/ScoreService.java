@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Transient;
 
+import Tuhoc.example.demo.exception.ScoreNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,20 +35,20 @@ public class ScoreService {
 	@Transient
 	public void create(ScoreDTO scoreDTO) {
 		Score score = new Score();
+		score.setId(scoreDTO.getId());
 		score.setScore(scoreDTO.getScore());
-		
-		Student student = studentRepo.findById(scoreDTO.getId()).orElseThrow(NoResultException::new);
-		Course course = courseRepo.findById(scoreDTO.getId()).orElseThrow(NoResultException::new);
+		Student student = studentRepo.findById(scoreDTO.getStudent().getId()).orElseThrow(NoResultException::new);
+		Course course = courseRepo.findById(scoreDTO.getCourse().getId()).orElseThrow(NoResultException::new);
 		score.setStudent(student);
 		score.setCourse(course);
 		scoreRepo.save(score);
 	}
 	@Transient
 	public void update(ScoreDTO scoreDTO) {
-		Score score = scoreRepo.findById(scoreDTO.getId()).orElseThrow(NoResultException::new);
+		Score score = scoreRepo.findById(scoreDTO.getId()).orElseThrow(ScoreNotFoundException::new);
 		score.setScore(scoreDTO.getScore());
-		Student student = studentRepo.findById(scoreDTO.getId()).orElseThrow(NoResultException::new);
-		Course course = courseRepo.findById(scoreDTO.getId()).orElseThrow(NoResultException::new);
+		Student student = studentRepo.findById(scoreDTO.getStudent().getId()).orElseThrow(NoResultException::new);
+		Course course = courseRepo.findById(scoreDTO.getCourse().getId()).orElseThrow(NoResultException::new);
 		score.setCourse(course);
 		score.setStudent(student);
 		scoreRepo.save(score);

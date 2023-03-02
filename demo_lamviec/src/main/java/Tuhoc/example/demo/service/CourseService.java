@@ -6,6 +6,9 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Transient;
 
+import Tuhoc.example.demo.DTO.StudentDTO;
+import Tuhoc.example.demo.entity.Student;
+import Tuhoc.example.demo.repo.StudentRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,10 +25,35 @@ import Tuhoc.example.demo.repo.CourseRepo;
 public class CourseService {
 	@Autowired
 	CourseRepo courseRepo;
-	@Transient
+	@Autowired
+	private StudentRepo studentRepo;
+
+//	@Transient
 	public void create(CourseDTO courseDTO) {
 		Course course = new Course();
 		course.setName(courseDTO.getName());
+		// lambda expression, stream api: java 8
+//		courseDTO.getStudents().forEach(student -> {
+//			Student foundStudent = studentRepo.findById(student.getId()).orElseThrow(() -> new RuntimeException("Invalid Student Id: " + student.getId()));
+//			course.getStudent().add(foundStudent);
+//		});
+
+		for (StudentDTO student : courseDTO.getStudents()) {
+			Student foundStudent = studentRepo.findById(student.getId())
+					.orElseThrow(() -> new RuntimeException("Student not found: " + student.getId()));
+			course.getStudent().add(foundStudent);
+		}
+
+		// Session :
+//		for (StudentDTO studentDTO : courseDTO.getStudents()) {
+//			Student student = new Student();
+//			student.setId(studentDTO.getId());
+//			course.getStudent().add(student);
+//		}
+
+		// student chua ton tai va khi tao course muon tao luon ca student (keyword: cascading) => loi khi ma thuc hien persist xuong db
+		// voi bang trung gian thi chi loi runtime khi thuc thi
+
 		courseRepo.save(course);
 	}
 	@Transient
